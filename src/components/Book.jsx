@@ -75,18 +75,19 @@ const pageMaterials = [
   new MeshStandardMaterial({ color: emissiveColor }),
 ];
 
+// ✅ Preload images with Vite base path
 pages.forEach((page) => {
-  useTexture.preload(`/images/${page.front}.jpeg`);
-  useTexture.preload(`/images/${page.back}.jpeg`);
-  useTexture.preload(`/images/book-cover-roughness.jpeg`);
+  useTexture.preload(`${import.meta.env.BASE_URL}images/${page.front}.jpeg`);
+  useTexture.preload(`${import.meta.env.BASE_URL}images/${page.back}.jpeg`);
+  useTexture.preload(`${import.meta.env.BASE_URL}images/book-cover-roughness.jpeg`);
 });
 
 const Page = ({ number, front, back, page, opened, bookClosed, ...props }) => {
   const [picture, picture2, pictureRoughness] = useTexture([
-    `/images/${front}.jpeg`,
-    `/images/${back}.jpeg`,
+    `${import.meta.env.BASE_URL}images/${front}.jpeg`,
+    `${import.meta.env.BASE_URL}images/${back}.jpeg`,
     ...(number === 0 || number === pages.length - 1
-      ? [`/images/book-cover-roughness.jpeg`]
+      ? [`${import.meta.env.BASE_URL}images/book-cover-roughness.jpeg`]
       : []),
   ]);
 
